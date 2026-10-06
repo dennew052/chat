@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { GreenApiCredentials, InstanceState } from '../types'
 import { GreenApiService } from '../services/greenApi'
 import { 
@@ -19,12 +19,12 @@ interface SettingsModalProps {
   onClearHistory: () => void
 }
 
-export const SettingsModal: React.FC<SettingsModalProps> = ({
+export function SettingsModal({
   credentials,
   onClose,
   onLogout,
   onClearHistory
-}) => {
+}: SettingsModalProps) {
   const [instanceState, setInstanceState] = useState<InstanceState | null>(null)
   const [isChecking, setIsChecking] = useState(false)
   const [checkError, setCheckError] = useState<string | null>(null)

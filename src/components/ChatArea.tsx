@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, Fragment, type ChangeEvent, type KeyboardEvent } from 'react'
 import { Chat, Message, GreenApiCredentials } from '../types'
-import { GreenApiService } from '../services/greenApi'
 import { 
   formatMessageTime, 
   formatDateDivider, 
@@ -9,14 +8,11 @@ import {
 } from '../utils/format'
 import { 
   Send, 
-  Check, 
   CheckCheck, 
   Clock, 
   AlertCircle, 
   ArrowLeft, 
-  Trash2,
-  Smile,
-  ShieldAlert
+  Trash2
 } from 'lucide-react'
 
 interface ChatAreaProps {
@@ -28,14 +24,14 @@ interface ChatAreaProps {
   onBack: () => void
 }
 
-export const ChatArea: React.FC<ChatAreaProps> = ({
+export function ChatArea({
   chat,
   messages,
   credentials,
   onSendMessage,
   onDeleteChat,
   onBack
-}) => {
+}: ChatAreaProps) {
   const [inputText, setInputText] = useState('')
   const [isSending, setIsSending] = useState(false)
   const [sendError, setSendError] = useState<string | null>(null)
@@ -61,7 +57,7 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
   }, [chatMessages.length])
 
   // Auto-resize textarea
-  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(e.target.value)
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto'
@@ -90,7 +86,7 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
     }
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSend()
@@ -171,7 +167,7 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
               formatDateDivider(prevMsg.timestamp) !== formatDateDivider(msg.timestamp)
 
             return (
-              <React.Fragment key={msg.idMessage || `${msg.timestamp}_${index}`}>
+              <Fragment key={msg.idMessage || `${msg.timestamp}_${index}`}>
                 {showDateDivider && (
                   <div className="flex justify-center my-4">
                     <span className="bg-white/70 backdrop-blur-sm text-slate-600 text-[11px] font-medium px-3 py-1 rounded-full shadow-sm border border-slate-200/40">
@@ -224,7 +220,7 @@ export const ChatArea: React.FC<ChatAreaProps> = ({
                     </div>
                   </div>
                 </div>
-              </React.Fragment>
+              </Fragment>
             )
           })
         )}

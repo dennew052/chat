@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { GreenApiCredentials, Chat, Message } from './types'
 import { GreenApiService } from './services/greenApi'
 import { useNotificationPolling } from './hooks/useNotificationPolling'
@@ -15,7 +15,7 @@ const STORAGE_KEYS = {
   MESSAGES: 'max_green_api_messages'
 }
 
-export const App: React.FC = () => {
+export function App() {
   // Load saved credentials from localStorage
   const [credentials, setCredentials] = useState<GreenApiCredentials | null>(() => {
     try {
@@ -306,4 +306,3 @@ export const App: React.FC = () => {
     </div>
   )
 }
-export default App

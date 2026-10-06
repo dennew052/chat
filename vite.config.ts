@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: './' // ensures relative asset paths for easier deployment (GitHub Pages, etc.)
+  base: '/chat/' // ensures relative asset paths for easier deployment (GitHub Pages, etc.)
 })

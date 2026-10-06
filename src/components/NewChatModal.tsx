@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { GreenApiCredentials, Chat } from '../types'
 import { GreenApiService } from '../services/greenApi'
 import { formatPhoneNumber } from '../utils/format'
@@ -10,11 +10,11 @@ interface NewChatModalProps {
   onChatCreated: (chat: Chat) => void
 }
 
-export const NewChatModal: React.FC<NewChatModalProps> = ({
+export function NewChatModal({
   credentials,
   onClose,
   onChatCreated
-}) => {
+}: NewChatModalProps) {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [contactName, setContactName] = useState('')
   const [isChecking, setIsChecking] = useState(false)
@@ -53,7 +53,7 @@ export const NewChatModal: React.FC<NewChatModalProps> = ({
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
     if (cleanDigits.length < 10) {
@@ -61,13 +61,8 @@ export const NewChatModal: React.FC<NewChatModalProps> = ({
       return
     }
 
-    // Determine target chatId:
-    // If checkAccount gave a specific chatId, use it.
-    // Otherwise, if WhatsApp format standard: cleanDigits + "@c.us"
-    // In MAX, it can also be raw chatId or cleanDigits@c.us
     let chatId = checkResult.chatId
     if (!chatId) {
-      // Default standard format for personal chats in GREEN-API
       chatId = cleanDigits.includes('@') ? cleanDigits : `${cleanDigits}@c.us`
     }
 

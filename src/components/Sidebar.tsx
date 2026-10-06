@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Chat, GreenApiCredentials } from '../types'
 import { PollingStatus } from '../hooks/useNotificationPolling'
 import { formatChatTimestamp, getAvatarDetails } from '../utils/format'
@@ -25,7 +25,7 @@ interface SidebarProps {
   pollingError: string | null
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({
+export function Sidebar({
   chats,
   selectedChatId,
   onSelectChat,
@@ -35,7 +35,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   credentials,
   pollingStatus,
   pollingError
-}) => {
+}: SidebarProps) {
   const [searchQuery, setSearchQuery] = useState('')
 
   const filteredChats = chats.filter((chat) => {

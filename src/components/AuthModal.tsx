@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { GreenApiCredentials, InstanceState } from '../types'
+import { useState, type FormEvent } from 'react'
+import { GreenApiCredentials } from '../types'
 import { GreenApiService } from '../services/greenApi'
 import { KeyRound, Server, AlertCircle, ArrowRight, ShieldCheck, HelpCircle } from 'lucide-react'
 
@@ -8,7 +8,7 @@ interface AuthModalProps {
   onLogin: (credentials: GreenApiCredentials) => void
 }
 
-export const AuthModal: React.FC<AuthModalProps> = ({ initialCredentials, onLogin }) => {
+export function AuthModal({ initialCredentials, onLogin }: AuthModalProps) {
   const [idInstance, setIdInstance] = useState(initialCredentials?.idInstance || '')
   const [apiTokenInstance, setApiTokenInstance] = useState(initialCredentials?.apiTokenInstance || '')
   const [apiUrl, setApiUrl] = useState(initialCredentials?.apiUrl || 'https://api.green-api.com')
@@ -17,7 +17,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ initialCredentials, onLogi
   const [error, setError] = useState<string | null>(null)
   const [showHelp, setShowHelp] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError(null)
 
@@ -59,12 +59,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ initialCredentials, onLogi
     } finally {
       setIsLoading(false)
     }
-  }
-
-  const handleQuickDemo = () => {
-    // Fill sample values for quick demonstration if user wants to inspect UI
-    setIdInstance('1101000001')
-    setApiTokenInstance('testToken1234567890abcdef')
   }
 
   return (

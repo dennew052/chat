@@ -1,11 +1,10 @@
-import React from 'react'
-import { Plus, MessageSquare, ShieldCheck, Zap } from 'lucide-react'
+import { Plus, ShieldCheck, Zap } from 'lucide-react'
 
 interface EmptyChatStateProps {
   onOpenNewChat: () => void
 }
 
-export const EmptyChatState: React.FC<EmptyChatStateProps> = ({ onOpenNewChat }) => {
+export function EmptyChatState({ onOpenNewChat }: EmptyChatStateProps) {
   return (
     <div className="flex-1 hidden md:flex flex-col items-center justify-center bg-[#F8FAFC] border-b-4 border-b-[#0066FF] p-8 text-center select-none">
       <div className="max-w-md flex flex-col items-center animate-in fade-in duration-300">
